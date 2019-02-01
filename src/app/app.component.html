@@ -1,0 +1,59 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+
+  
+
+
+
+  <div class ="mainform">
+  <form (ngSubmit)="onSubmit()">
+    
+      <label>CITY NAME:
+        <input [(ngModel)]="incity" [ngModelOptions]="{standalone: true}" placeholder="enter here first">
+        <button type="submit">Submit</button>
+      </label>
+      
+  </form>
+</div>
+
+<div class = "trunk">
+
+    <div class="leftcolumn">
+        <div class="card">
+          <h2>Geography</h2>
+          <p >Latitude : {{$products.coord.lat}} °N</p>
+          <p >Longitude : {{$products.coord.lon}} °E</p>
+          <p>City : {{$products.name}} </p>
+          <p>Country : {{$products.sys.country}} </p>
+        </div>
+    </div>
+
+    <div class="midcolumn">
+      <div class="card">
+        <h2>Weather</h2>
+        <img src="http://openweathermap.org/img/w/{{$products.weather[0].icon}}.png">
+        <li *ngFor="let weather of $products.weather">
+          {{ weather.main }} ~~ {{weather.description}}
+        </li>
+      </div>
+    </div>
+
+    <div class="rightcolumn">
+      <div class="card">
+        <h2>Temperature</h2>
+        <p>Current Temp : {{$products.main.temp - 273 | number:'2.1-4'}} °c</p>
+        <p>Max Temp : {{$products.main.temp_max - 273 | number:'2.1-4'}} °c</p>
+        <p>Min Temp : {{$products.main.temp_min - 273 | number:'2.1-4'}} °c</p>
+      </div>
+    </div>
+    <div class="map"
+     leaflet
+     [leafletOptions]="options"
+     (leafletMapReady)="onMapReady($event)">
+</div>
+</div>
+</div>
+<router-outlet></router-outlet>
